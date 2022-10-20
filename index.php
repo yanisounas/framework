@@ -4,7 +4,6 @@ require "vendor/autoload.php";
 
 
 $appManager = new \MicroFramework\Core\ApplicationManager(__DIR__);
-$appManager->newApp("BaseApplication", \App\Controller\HomeController::class);
-$appManager->newApp("Api", \App\Controller\ApiController::class);
+$appManager->newApp("BaseApplication", \App\Controller\TestController::class);
 
-$appManager->startAll();
+$appManager->start("BaseApplication");
