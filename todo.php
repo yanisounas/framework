@@ -2,6 +2,7 @@
 /*
 //Work In Progress : Tout mettre dans un dossier "core" puis créer Api class et WebApp class qui hériterons de Application class pour avoir une utilisation encore plus simple (instance du router automatique, dotenv automatique, gestion des requêtes différentes ?, l'api return obligatoirement une JsonReponse...)
 
+
 //TODO: Gestion de la documentation native pour l'api (possibilité de mettre très facilement en place une documentation ou de laisser une documentation par défaut; Inspiré du microframework python FastApi)
 
 //TODO: Vérifier les Entity (créer une method flush() dans la classe abstraite qui vérifiera que les columns correspondent bien et que le flush ne passe pas de valeur en trop, de mauvais type et vérifier la taille)

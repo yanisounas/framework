@@ -11,6 +11,7 @@ use ReflectionException;
 class ApplicationManager
 {
     private array $apps = array();
+    private Router $router;
 
     public function __construct(private readonly string $envDir)
     {
@@ -18,6 +19,8 @@ class ApplicationManager
 
         $dotenv = Dotenv::createImmutable($this->envDir);
         $dotenv->load();
+
+        $this->router = new Router((empty($_GET["route"])) ? "/" : $_GET["route"]);
     }
 
     /**
