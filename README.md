@@ -35,6 +35,8 @@ First things first you need to create your app folder and your .env file:
 
 See the .env.exemple to create your own .env.
 
+(Don't forget to add your application folder in the composer.json file in the "autoloader" section if it's not already the case)
+
 
 Controllers
 ------------
