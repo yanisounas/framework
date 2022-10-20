@@ -1,0 +1,91 @@
+<?php
+
+namespace MicroFramework\Core\Api\Endpoint\Attributes;
+
+use Exception;
+
+#[\Attribute(\Attribute::TARGET_METHOD)]
+class Endpoint
+{
+    private array $matches;
+    const TYPES = [
+        "{i}" => "(\d+)",
+        "{s}" => "(\w+)",
+    ];
+
+    public function __construct(
+        private string $path,
+        private readonly string $method = "GET",
+        private readonly mixed $request = null,
+        private readonly ?string $name = null,
+        private readonly ?string $description = null
+    )
+    {
+        $this->path = ($this->path != '/') ? trim($this->path, '/') : $this->path;
+    }
+
+    /**
+     * @param string $url
+     * @return bool
+     * @throws Exception
+     */
+    public function match(string $url): bool
+    {
+        $url = ($url != '/') ? trim($url, '/') : $url;
+
+        $typedRegex = "#({\w+}):\w+#";
+
+        if (preg_match_all($typedRegex, $this->path, $typedMatches))
+        {
+            foreach ($typedMatches[0] as $founded)
+            {
+                preg_match("#{\w+}#", $founded, $type);
+                if (isset(self::TYPES[$type[0]]))
+                    $this->path = preg_replace("#". $type[0] .":\w+#", self::TYPES[$type[0]], $this->path);
+                else
+                    throw new Exception("Unknown type $type[0]");
+            }
+        }
+
+
+        $path = preg_replace("#:(\w+)#", "([^/]+)", $this->path);
+        $reg = "#^$path$#i";
+
+
+
+
+        if(!preg_match($reg, $url, $matches))
+            return false;
+
+        array_shift($matches);
+        $this->matches = $matches;
+        return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMethod(): string {return $this->method;}
+    /**
+     * @return mixed
+     */
+    public function getRequest(): mixed {return $this->request;}
+    /**
+     * @return string
+     */
+    public function getPath(): string {return $this->path;}
+
+    /**
+     * @return string|null
+     */
+    public function getDescription(): ?string {return $this->description;}
+
+    /**
+     * @return string|null
+     */
+    public function getName(): ?string {return $this->name;}
+    /**
+     * @return array
+     */
+    public function getMatches(): array {return $this->matches;}
+}

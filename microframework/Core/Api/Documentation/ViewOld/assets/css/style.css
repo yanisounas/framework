@@ -1,0 +1,370 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700;800;900&family=Titillium+Web:wght@200;300;400;600;700&display=swap');
+
+
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+body
+{
+    width: 100%;
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+
+}
+
+.doc-head
+{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.doc-head h1
+{
+    font-size: 2rem;
+    margin: 0 2% 2% 0;
+}
+
+
+.doc-content
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.endpoints
+{
+    width: 90%;
+}
+
+.endpoint .endpoint-header
+{
+    background-color: #e8e8e8;
+    display: flex;
+    align-items: center;
+    padding: 1.4rem 1rem;
+    cursor: pointer;
+}
+
+.first-endpoint
+{
+    border-radius: 1rem 1rem 0 0;
+}
+
+.last-endpoint
+{
+    border-radius: 0 0 1rem 1rem;
+
+}
+
+.endpoint .endpoint-header h3
+{
+    font-size: 1.3rem;
+    margin-right: 1.3rem;
+}
+
+
+.endpoint .endpoint-header p
+{
+    font-size: 1.1rem;
+    color: #979696;
+}
+
+
+.endpoint .endpoint-header .right
+{
+    margin-left: auto;
+}
+
+.btn
+{
+    font-size: 1.3rem;
+    overflow: hidden;
+    border-radius: 1.2rem;
+    padding: .4rem 1.5rem;
+    cursor: pointer;
+    transition: 1s ease;
+}
+
+.endpoint .endpoint-header .method
+{
+    padding: .4rem 1.5rem;
+    border-radius: 3rem;
+    font-size: 1rem;
+    color: white;
+}
+
+.blue
+{
+    background-color: rgba(1, 112, 223, 0.62);
+}
+
+
+.outline-blue
+{
+    border: 1px solid rgba(1, 112, 223, 0.62);
+    color: rgba(1, 112, 223, 0.62) !important;
+    position: relative;
+    z-index: 1;
+}
+
+.outline-blue::before
+{
+    content: '';
+    z-index: -1;
+    transition: 1s ease;
+    top: 0;
+    left: 0;
+    position: absolute;
+    border-radius: 1.2rem;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1, 112, 223, 0.62);
+    transform: translateX(-100%);
+}
+
+
+.outline-blue:hover
+{
+    color: white !important;
+}
+
+.outline-blue:hover::before
+{
+    transform: translateX(0);
+}
+
+.red
+{
+    background-color: rgba(223, 1, 1, 0.62);
+}
+
+
+.outline-red
+{
+    border: 1px solid rgba(223, 1, 1, 0.62);
+    color: rgba(223, 1, 1, 0.62) !important;
+    position: relative;
+    z-index: 1;
+}
+
+.outline-red::before
+{
+    content: '';
+    z-index: -1;
+    transition: 1s ease;
+    top: 0;
+    left: 0;
+    position: absolute;
+    border-radius: 1.2rem;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(223, 1, 1, 0.62);
+    transform: translateX(-100%);
+}
+
+
+.outline-red:hover
+{
+    color: white !important;
+}
+
+.outline-red:hover::before
+{
+    transform: translateX(0);
+}
+
+
+
+.green
+{
+    background-color: rgba(51, 148, 0, 0.62);
+}
+
+.outline-green
+{
+    border: 1px solid rgba(51, 148, 0, 0.62);
+    color: rgba(51, 148, 0, 0.62) !important;
+    position: relative;
+    z-index: 1;
+}
+
+.outline-green::before
+{
+    content: '';
+    z-index: -1;
+    transition: 1s ease;
+    top: 0;
+    left: 0;
+    position: absolute;
+    border-radius: 1.2rem;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(51, 148, 0, 0.62);
+    transform: translateX(-100%);
+}
+
+
+.outline-green:hover
+{
+    color: white !important;
+}
+
+.outline-green:hover::before
+{
+    transform: translateX(0);
+}
+
+.light-blue
+{
+    background-color: rgba(1, 216, 223, 0.62);
+}
+
+.outline-light-blue
+{
+    border: 1px solid rgba(1, 216, 223, 0.62);
+    color: rgba(1, 216, 223, 0.62) !important;
+    position: relative;
+    z-index: 1;
+}
+
+.outline-light-blue::before
+{
+    content: '';
+    z-index: -1;
+    transition: 1s ease;
+    top: 0;
+    left: 0;
+    position: absolute;
+    border-radius: 1.2rem;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(1, 216, 223, 0.62);
+    transform: translateX(-100%);
+}
+
+
+.outline-light-blue:hover
+{
+    color: white !important;
+}
+
+.outline-light-blue:hover::before
+{
+    transform: translateX(0);
+}
+
+
+.endpoint .endpoint-body
+{
+    padding: 3rem 1rem;
+    display: none;
+}
+.parameters
+{
+    flex: 40%;
+}
+
+.result
+{
+    flex: 60%;
+}
+
+
+
+.parameters .p-title, .result .r-title
+{
+    font-size: 1.6rem;
+}
+
+.p-section
+{
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.p-section .param-name
+{
+    padding: .5rem .9rem;
+    border-radius: 3rem;
+    font-size: 1.2rem;
+    color: white;
+    background-color: rgba(128, 128, 128, 0.84);
+    margin-right: 1.3rem;
+}
+
+
+.p-section .p-input
+{
+    border: 1px solid #979696;
+    color: #979696;
+    padding: .5rem 1rem;
+    border-radius: 1rem;
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+.f-params
+{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.btn-try
+{
+    align-self: flex-end;
+    font-size: 1rem;
+    padding: .4rem 1rem;
+}

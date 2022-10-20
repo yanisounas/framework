@@ -1,0 +1,20 @@
+{
+    "name": "yo/microframework",
+    "description": "A Micro Framework in PHP 8",
+    "autoload": {
+        "psr-4": {
+            "MicroFramework\\": "microframework/",
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "",
+            "email": ""
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.4",
+        "ext-pdo": "*"
+    }
+}
