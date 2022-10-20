@@ -23,7 +23,7 @@ First Usage
 File Architecture
 -----------------
 
-First things first you need to create your app folder:
+First things first you need to create your app folder and your .env file:
 
     .
     ├── app (Your app)
