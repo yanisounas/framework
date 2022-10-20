@@ -46,11 +46,6 @@ I'll call mine "HomeController":
     ├── app                         
         ├── Controller    
             ├── HomeController.php
-    ├── microframework
-    ├── index.php
-    ├── .htaccess
-    ├── .env
-    ├── ...
 
 Put this following code:
 
