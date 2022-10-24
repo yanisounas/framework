@@ -21,4 +21,7 @@
 // ---- Pas forcément utile, à voir à la fin ----
 //TODO: Caching (À voir à la fin: Voir si l'utilisation que je vais en avoir nécessite un système comme celui-ci)
 //TODO: Système de Captcha sur les formulaires (Pas forcément utile: un microframework n'a pas pour but d'aller aussi loin dans ses fonctionnalités)
+
+//TODO: Passer par ob pour le moteur de templates
+
 */
