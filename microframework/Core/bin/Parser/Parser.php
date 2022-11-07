@@ -47,5 +47,3 @@ class Parser
     }
 
 }
-
-$parser = new Parser();
