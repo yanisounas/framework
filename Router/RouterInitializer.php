@@ -56,11 +56,13 @@ class RouterInitializer
     public function getControllers(string $dir, ?string $prefix = null): array
     {
         $controllers = [];
-        $namespace = ($prefix) ? explode("\\", __NAMESPACE__)[0] . "\\Controller\\$prefix\\" : explode("\\", __NAMESPACE__)[0] ."\\Controller\\";
+        $namespace = explode("\\", __NAMESPACE__)[0] . "\\Controller\\" . ($prefix ? "$prefix\\" : "") ;
+
+        //$namespace = ($prefix) ? explode("\\", __NAMESPACE__)[0] . "\\Controller\\$prefix\\" : explode("\\", __NAMESPACE__)[0] ."\\Controller\\";
 
         foreach (array_diff(scandir($dir), [".", ".."]) as $path)
         {
-            if (is_dir($path))
+            if (is_dir($dir . DIRECTORY_SEPARATOR . $path))
                 $controllers = array_merge($controllers, $this->getControllers($dir . DIRECTORY_SEPARATOR . $path, $path));
 
             if (is_file($dir . DIRECTORY_SEPARATOR . $path) && array_slice(explode('.', $path), -1)[0] == "php")
