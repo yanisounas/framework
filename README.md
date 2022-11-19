@@ -12,7 +12,7 @@ I just started it, and I'm not an experienced developer,  I am doing this projec
 - [Use your View](#views)
     - [Passing arguments to your View](#passing-arguments-to-your-view)
     - [Passing associative array to your view](#passing-associative-array-to-your-view)
-    - [Customize your view](#customize-your-view)
+    - [Customize your views](#customize-your-views)
 
 First Usage
 ==================
