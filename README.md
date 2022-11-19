@@ -6,16 +6,13 @@ I just started it, and I'm not an experienced developer,  I am doing this projec
 ## Summary
 
 - [First Usage](#first-usage)
-    - [File Architecture](#file-architecture)
-    - [Make your own Controller](#controllers)
-    - [Create your first Web Application](#webapp)
-    - [Use your View](#views)
-        - [Passing arguments to your View](#passing-arguments-to-your-view)
-        - [Passing associative array to your view](#passing-associative-array-to-your-view)
-- [404 Error and more response features](#404-error-and-more-response-features)
-    - [Intro to 404](#intro-to-404)
-    - [Use Controller](#404-page-with-controller)
-
+- [File Architecture](#file-architecture)
+- [Make your own Controller](#controllers)
+- [Create your first Web Application](#webapp)
+- [Use your View](#views)
+    - [Passing arguments to your View](#passing-arguments-to-your-view)
+    - [Passing associative array to your view](#passing-associative-array-to-your-view)
+    - [Customize your view](#customize-your-view)
 
 First Usage
 ==================
@@ -23,79 +20,65 @@ First Usage
 File Architecture
 -----------------
 
-First things first you need to create your app folder and your .env file:
+First things first you need to create your .env file:
 
     .
-    ├── app (Your app)
-    ├── microframework (Framework core folder)
-    ├── index.php (Main file)
-    ├── .htaccess (Rewrite rules)
+    ├── API (Controllers, Views and Enities for your API)
+    ├── Controller (Application Controllers)
+    ├── View (Application Views)
+    ├── Entity (Application Entities)
     ├── .env (Configuration file)
     ├── ... (Composer, .env.exemple, .gitignore, ...)
 
 See the .env.exemple to create your own .env.
 
-(Don't forget to add your application folder in the composer.json file in the "autoloader" section if it's not already the case)
-
 
 Controllers
 ------------
-Next you need to create a new controller in app/Controller.
+Next you need to create a new controller in the Controller directory.
 
 I'll call mine "HomeController":
 
     .
-    ├── app                         
-        ├── Controller    
-            ├── HomeController.php
+    ├── Controller    
+        ├── HomeController.php
 
 Put this following code:
 
 ```php
-namespace App\Controller;
+namespace Framework\Controller;
 
-use MicroFramework\Core\Response\Response;
-use MicroFramework\Core\Router\Attributes\Route;
+use Framework\Response\Response;
+use Framework\Router\Attributes\Route;
 
 class HomeController
 {
     #[Route("/")]
-    public function home()
+    public function home(): Response
     {
         return new Response("Hello World");
     }
 }
 
 ```
-
-WebApp
-------
-Finally, you can create a new WebApp in index.php:
-
-```php
-require "vendor/autoload.php";
-
-
-$appManager = new \MicroFramework\Core\ApplicationManager(__DIR__);
-$appManager->newApp("ExempleApplication", \App\Controller\HomeController::class);
-$appManager->start("ExempleApplication");
-```
+Launch the command `php startServer.php`.
 
 Go to your favorite browser and try it.
+
+You must restart the server if you add a controller.
 
 
 Views
 ------
-To create a view, make sure your .env file contains `VIEW_PATH="app/View"`.
+To create a view, make sure your .env file contains `VIEW_PATH="View"`.
 \
 Then create a view in app/View:
 
-    .
-    ├── app                         
-        ├── Controller    
-            ├── HomeController.php
-        ├── View
-            ├── home.php
+    .                      
+    ├── Controller    
+        ├── HomeController.php
+    ├── View
+        ├── home.php
 
 home.php:
 ```html
@@ -114,17 +97,17 @@ home.php:
 Then go to your HomeController and change some code:
 
 ```php
-namespace App\Controller;
+namespace Framework\Controller;
 
-use MicroFramework\Core\AbstractClass\Controller;
-use MicroFramework\Core\Router\Attributes\Route;
+use Framework\AbstractClass\Controller;
+use Framework\Router\Attributes\Route;
 
 class HomeController extends Controller
 {
     #[Route("/")]
-    public function home()
+    public function home(): int
     {
-        return $this->view("home.php");
+        return $this->view('home');
     }
 }
 ```
@@ -136,17 +119,17 @@ Passing arguments to your View
 You can pass arguments to your view in your controller:
 
 ```php
-namespace App\Controller;
+namespace Framework\Controller;
 
-use MicroFramework\Core\AbstractClass\Controller;
-use MicroFramework\Core\Router\Attributes\Route;
+use Framework\AbstractClass\Controller;
+use Framework\Router\Attributes\Route;
 
 class HomeController extends Controller
 {
     #[Route("/")]
-    public function home()
+    public function home(): int
     {
-        return $this->view("home.php", ["foo", "bar"]);
+        return $this->view('home', ["foo", "bar"]);
     }
 }
 ```
@@ -176,17 +159,17 @@ Passing associative array to your view
 You can also use an associative array:
 
 ```php
-namespace App\Controller;
+namespace Framework\Controller;
 
-use MicroFramework\Core\AbstractClass\Controller;
-use MicroFramework\Core\Router\Attributes\Route;
+use Framework\AbstractClass\Controller;
+use Framework\Router\Attributes\Route;
 
 class HomeController extends Controller
 {
     #[Route("/")]
-    public function home()
+    public function home(): int
     {
-        return $this->view("home.php", ["id" => 1, "username" => "Foo"]);
+        return $this->view('home', ["id" => 1, "username" => "Foo"]);
     }
 }
 ```
@@ -239,4 +222,22 @@ Use your keys as variable names:
         </table>
     </body>
 </html>
+```
+
+Customize your views
+--------------------
+
+You can use css to customize your views, first create the public/assets/css folder and your css file.
+
+    .                      
+    ├── public
+        ├── assets
+            ├── css
+                ├── style.css
+
+
+Then add the link tag to your head 
+
+```html     
+<link rel="stylesheet" href="./assets/style.css">
 ```

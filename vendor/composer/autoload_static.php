@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2193068390ba33a6f303220d15510339
+class ComposerStaticInit12acb672953fd1cbe66522b2571da79b
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -23,21 +23,17 @@ class ComposerStaticInit2193068390ba33a6f303220d15510339
         array (
             'PhpOption\\' => 10,
         ),
-        'M' => 
-        array (
-            'MicroFramework\\' => 15,
-        ),
         'G' => 
         array (
             'GrahamCampbell\\ResultType\\' => 26,
         ),
+        'F' => 
+        array (
+            'Framework\\' => 10,
+        ),
         'D' => 
         array (
             'Dotenv\\' => 7,
-        ),
-        'A' => 
-        array (
-            'App\\' => 4,
         ),
     );
 
@@ -58,39 +54,30 @@ class ComposerStaticInit2193068390ba33a6f303220d15510339
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
-        'MicroFramework\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/microframework',
-        ),
         'GrahamCampbell\\ResultType\\' => 
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
+        ),
+        'Framework\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/',
         ),
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
-        'App\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app',
-        ),
     );
 
     public static $classMap = array (
-        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
-        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
-        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
-        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2193068390ba33a6f303220d15510339::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2193068390ba33a6f303220d15510339::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2193068390ba33a6f303220d15510339::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit12acb672953fd1cbe66522b2571da79b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit12acb672953fd1cbe66522b2571da79b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit12acb672953fd1cbe66522b2571da79b::$classMap;
 
         }, null, ClassLoader::class);
     }
