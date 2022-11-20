@@ -30,11 +30,7 @@ class Router
      */
     public function newRoute(Route $route, string $path, string $method, mixed $target, ?string $name = null): void
     {
-        if (str_contains($method, '|'))
-            foreach (explode('|', $method) as $m)
-                $this->routes[strtoupper($m)][trim($path, '/')] = [$route, $target];
-        else
-            $this->routes[strtoupper($method)][trim($path, '/')] = [$route, $target];
+        $this->routes[strtoupper($method)][trim($path, '/')] = [$route, $target];
 
         if ($name)
         {
