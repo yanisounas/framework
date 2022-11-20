@@ -72,7 +72,6 @@ class Query
     {
         if (empty($this->orderQuery)) $this->orderQuery = " ORDER BY ";
         $this->orderQuery .= implode(", ", $this->_orderKwargs($order_data));
-        var_dump($this->orderQuery);
         return $this;
     }
 
