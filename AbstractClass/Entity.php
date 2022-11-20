@@ -2,19 +2,50 @@
 
 namespace Framework\AbstractClass;
 
+use Framework\ORM\Attributes\Column;
+use ReflectionException;
+
 abstract class Entity
 {
-    protected readonly Database $db;
-    protected ?string $TABLE_NAME = null;
+    public static ?string $TABLE_NAME = null;
+
+    #[Column("int", 11, "AUTO_INCREMENT, PRIMARY KEY")]
+    protected int $id;
+
+    public function __set(string $name, $value): void
+    {
+        $this->$name = $value;
+    }
+
+    public function __get(string $name): mixed
+    {
+        return $this->$name;
+    }
+
+    public function toAssocArray(): array
+    {
+        $assocArray = [];
+        foreach ((new \ReflectionClass($this))->getProperties() as $property)
+            $assocArray[$property->getName()] = $property->getValue($this);
+
+        unset($assocArray["TABLE_NAME"]);
 
     public function __construct()
     {
-        $this->db = new Database($_ENV);
-        $this->TABLE_NAME = ($this->TABLE_NAME) ?? strtolower(array_slice(explode("\\", get_class($this)), -1)[0]);
+
     }
 
-    public function getAll(): array
+    protected function _isValidValue(string $property, string $value): void
     {
-        return $this->db->select($this->TABLE_NAME)->exec()->fetchAll();
+    }
+
+    public function load(array $values): Entity
+    {
+        foreach ($values as $key => $value)
+        {
+            $this->__set($key, $value);
+        }
+
+        return $this;
     }
 }

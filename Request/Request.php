@@ -4,36 +4,41 @@ namespace Framework\Request;
 
 class Request
 {
-    public function getFirst(string $key)
+    public static function METHOD()
     {
-        if (!is_null($this->get($key)))
-            return $this->get($key);
+        return $_SERVER['REQUEST_METHOD'];
+    }
 
-        if (!is_null($this->post($key)))
-            return $this->post($key);
+    public static function getFirst(string $key)
+    {
+        if (!is_null(self::get($key)))
+            return self::get($key);
 
-        if (!is_null($this->stream($key)))
-            return $this->stream($key);
+        if (!is_null(self::post($key)))
+            return self::post($key);
+
+        if (!is_null(self::stream($key)))
+            return self::stream($key);
 
         return null;
     }
 
-    public function getAll(string $key)
+    public static function getAll(string $key)
     {
         $temp = [];
-        if (!is_null($this->get($key)))
-            $temp["GET"] = $this->get($key);
+        if (!is_null(self::get($key)))
+            $temp["GET"] = self::get($key);
 
-        if (!is_null($this->post($key)))
-            $temp["POST"] = $this->post($key);
+        if (!is_null(self::post($key)))
+            $temp["POST"] = self::post($key);
 
-        if (!is_null($this->stream($key)))
-            $temp["STREAM"] = $this->stream($key);
+        if (!is_null(self::stream($key)))
+            $temp["STREAM"] = self::stream($key);
 
         return $temp;
     }
 
-    public function get(?string $key = null): string|array|null
+    public static function get(?string $key = null): string|array|null
     {
         if (!$key)
             return $_GET;
@@ -44,7 +49,7 @@ class Request
         return null;
     }
 
-    public function post(?string $key = null): string|array|null
+    public static function post(?string $key = null): string|array|null
     {
         if (!$key)
             return $_POST;
@@ -55,7 +60,7 @@ class Request
         return null;
     }
 
-    public function stream(?string $key = null,  bool $json = false)
+    public static function stream(?string $key = null, bool $json = false)
     {
         $request = file_get_contents("php://input");
 
@@ -73,4 +78,5 @@ class Request
             return $request;
 
     }
+
 }
