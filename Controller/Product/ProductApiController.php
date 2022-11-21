@@ -1,6 +1,6 @@
 <?php
 
-namespace Framework\Controller;
+namespace Framework\Controller\Product;
 
 use Framework\AbstractClass\ApiBase;
 use Framework\AbstractClass\Entity;
@@ -12,12 +12,12 @@ use Framework\Response\JSONResponse;
 use Framework\Router\Attributes\Route;
 use ReflectionException;
 
-#[API(appName: "Users")]
-class ApiController extends ApiBase
+#[API(appName: "Products")]
+class ProductApiController extends ApiBase
 {
     public function __construct(private readonly Mapper $mapper = new Mapper()) {}
 
-    #[Route("/api", method: "GET")]
+    #[Route("/api/product", method: "GET")]
     #[Endpoint("getAllUsers", description: "A list of all users")]
     public function getAllUsers(): JSONResponse
     {
@@ -29,7 +29,7 @@ class ApiController extends ApiBase
     /**
      * @throws ReflectionException
      */
-    #[Route("/api/new", method: "POST")]
+    #[Route("/api/product/new", method: "POST")]
     #[Endpoint("newUser", description: "Add a new user")]
     public function newUser(): JSONResponse
     {
@@ -38,7 +38,7 @@ class ApiController extends ApiBase
         return $this->json(Request::stream());
     }
 
-    #[Route("/api/user/{s}:username", method: "GET")]
+    #[Route("/api/product/{s}:username", method: "GET")]
     #[Endpoint("getUserByUsername", description: "Get a specific user by username", params: ["username" => ["type" => "string", "description" => "Username"]])]
     public function getUserByUsername(string $username): JSONResponse
     {

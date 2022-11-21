@@ -83,15 +83,13 @@ class Router
         $requestMethod = $_SERVER["REQUEST_METHOD"];
         $this->url ??= $_SERVER["REQUEST_URI"];
 
-
         if (!isset($this->routes[$requestMethod]))
             throw new MethodNotSupported("Method '$requestMethod' not supported");
 
         foreach ($this->routes[$requestMethod] as $route)
-        {
             if ($route[0]->match($this->url))
                 return call_user_func_array([new $route[1][0](), $route[1][1]], $route[0]->getMatches());
-        }
+
         if (!isset($_ENV["ERROR_404"]))
             throw new RouteNotFound("Route $this->url not found");
         return (new View(dirname(__DIR__) . DIRECTORY_SEPARATOR . $_ENV["ERROR_404"], 404))->render();
