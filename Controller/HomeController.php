@@ -17,6 +17,7 @@ class HomeController extends Controller
             $this->mapper->make("User", Request::post());
 
         $users = $this->mapper->getAll("User");
+        var_dump($users[0]->toAssocArray());
 
         return $this->view('home', ["users" => $users]);
     }

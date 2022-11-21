@@ -1,1 +1,1 @@
-["Framework\\Controller\\HomeController"]
+["Framework\\Controller\\ApiController","Framework\\Controller\\HomeController"]

@@ -26,16 +26,18 @@ abstract class Entity
     {
         $assocArray = [];
         foreach ((new \ReflectionClass($this))->getProperties() as $property)
-            $assocArray[$property->getName()] = $property->getValue($this);
-
-        unset($assocArray["TABLE_NAME"]);
+            if ($property->getName() != "id" && count($property->getAttributes(Column::class)) > 0)
+                $assocArray[$property->getName()] = $property->getValue($this);
 
         return $assocArray;
     }
 
-    public static function toAssocArrayAll(array $entities): array
+    public static function toAssocArrayAll(array &$entities): array
     {
+        foreach ($entities as &$entity)
+            $entity = $entity->toAssocArray();
 
+        return $entities;
     }
 
     protected function _isValidValue(string $property, string $value): void
@@ -45,9 +47,7 @@ abstract class Entity
     public function load(array $values): Entity
     {
         foreach ($values as $key => $value)
-        {
             $this->__set($key, $value);
-        }
 
         return $this;
     }

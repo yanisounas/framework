@@ -50,11 +50,10 @@ class Mapper
     /**
      * @throws ReflectionException
      */
-    public function getBy(string $entityName, array $columnValues = [], ...$kwargs): object
+    public function getBy(string $entityName, array $columnValues = [], mixed ...$kwargs): object
     {
         $columnValues = array_merge($columnValues, $kwargs);
         $reflect = $this->__getReflect($entityName);
-
 
         $result = $this->db->select( $reflect->getProperty("TABLE_NAME")->getValue() )->where($columnValues)->exec()->fetch();
 
@@ -109,6 +108,6 @@ class Mapper
 
     public function push(Entity $entity)
     {
-
+        $this->db->insert($entity::$TABLE_NAME, $entity->toAssocArray());
     }
 }

@@ -58,8 +58,6 @@ class RouterInitializer
         $controllers = [];
         $namespace = explode("\\", __NAMESPACE__)[0] . "\\Controller\\" . ($prefix ? "$prefix\\" : "") ;
 
-        //$namespace = ($prefix) ? explode("\\", __NAMESPACE__)[0] . "\\Controller\\$prefix\\" : explode("\\", __NAMESPACE__)[0] ."\\Controller\\";
-
         foreach (array_diff(scandir($dir), [".", ".."]) as $path)
         {
             if (is_dir($dir . DIRECTORY_SEPARATOR . $path))

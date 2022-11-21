@@ -2,7 +2,7 @@
 
 namespace Framework\Response;
 
-class JsonResponse extends Response
+class JSONResponse extends Response
 {
     public function __construct(
         array $content,
