@@ -1,7 +1,10 @@
-# MicroFramework
-A Micro Framework in PHP 8.
+# FastFramework
+A single line for 20 instructions
 
-I just started it, and I'm not an experienced developer,  I am doing this project to improve my skills. So this framework is not intended to be used other than locally.
+
+# Warning
+
+I just started it, and I'm not an experienced developer, I'm doing this project to improve my skills. So this framework is not intended to be used other than locally.
 
 ## Summary
 
@@ -13,6 +16,10 @@ I just started it, and I'm not an experienced developer,  I am doing this projec
     - [Passing arguments to your View](#passing-arguments-to-your-view)
     - [Passing associative array to your view](#passing-associative-array-to-your-view)
     - [Customize your views](#customize-your-views)
+    - [Upgrade your views with FastEngine]() - Coming soon
+- [Make your API](#make-your-api)
+- [Work with database]() - Coming soon
+- [Create a user]() - Coming soon
 
 First Usage
 ==================
@@ -23,14 +30,13 @@ File Architecture
 First things first you need to create your .env file:
 
     .
-    ├── API (Controllers, Views and Enities for your API)
-    ├── Controller (Application Controllers)
-    ├── View (Application Views)
-    ├── Entity (Application Entities)
-    ├── .env (Configuration file)
+    ├── Controller
+    ├── View
+    ├── Entity
+    ├── .env
     ├── ... (Composer, .env.exemple, .gitignore, ...)
 
-See the .env.exemple to create your own .env.
+See the .env.exemple to create your own.
 
 
 Controllers
@@ -72,7 +78,7 @@ Views
 ------
 To create a view, make sure your .env file contains `VIEW_PATH="View"`.
 \
-Then create a view in app/View:
+Then create a view in View/:
 
     .                      
     ├── Controller    
@@ -112,7 +118,7 @@ class HomeController extends Controller
 }
 ```
 
-You have to extend from Controller to access to the view method.
+You have to extend from Controller for the view method.
 
 Passing arguments to your View
 ------------------------------
@@ -241,3 +247,78 @@ Then add the link tag to your head
 ```html     
 <link rel="stylesheet" href="./assets/style.css">
 ```
+
+
+Make your API
+=============
+FastFramework provides a simple way to make an api. 
+
+First, create a new controller
+
+    .                      
+    ├── Controller
+        ├── ApiController.php
+
+
+We will pretend that our API manages users.
+```php
+<?php
+
+namespace Framework\Controller;
+
+use Framework\AbstractClass\ApiBase;
+use Framework\API\Attributes\API;
+
+#[API(appName: "Users")]
+class ApiController extends ApiBase
+{
+
+}
+```
+The #[API] attribute will tell the RouterInitializer that our Controller is an API so that the ApiManager can use them afterwards.
+
+Let's add some data and two Endpoints.
+
+```php
+<?php
+
+namespace Framework\Controller;
+
+use Framework\AbstractClass\ApiBase;
+use Framework\API\Attributes\API;
+
+#[API(appName: "Users")]
+class ApiController extends ApiBase
+{
+    private array $users;
+
+    public function __construct()
+    {
+        for ($i = 1; $i <= 5; $i++)
+            $this->users["user$i"] = ["username" => "user$i","email" => "user$i@example.com", "password" => "randompassword$i"];
+    }
+
+    #[Route("/api")]
+    #[Endpoint("getAllUsers", description: "A list of all users")]
+    public function showUsers(): JSONResponse
+    {
+        return $this->json($this->users);
+    }
+
+    #[Route("/api/{s}:username")]
+    #[Endpoint("getUserByUsername", description: "Get a specific user by username", params: ["username" => ["type" => "string", "description" => "Username"]])]
+    public function getUserByUsername(string $username): JSONResponse
+    {
+        return $this->json($this->users[$username]);
+    }
+}
+```
+You have to put the #[Route] attribute as well as the #[Endpoint] attribute (they will be joined soon).
+
+The #[Endpoint] attribute will give the APIManager all the information that will allow you to create a documentation very easily or use the generated one at /api-documentation (Endpoint name, description, method (optional) and parameters (optional)).
+
+Now, reboot the server and try
+
+- [localhost:8000/api](http://localhost:8000/api) 
+- [localhost:8000/api/user1](http://localhost:8000/api/user1)
+- [localhost:8000/api-documentation](http://localhost:8000/api-documentation)

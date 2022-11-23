@@ -70,7 +70,6 @@ class Response
     public const TOO_MANY_REQUESTS = 429;
     public const REQUEST_HEADER_FIELDS_TOO_LARGE = 431;
     public const RETRY_WITH = 449;
-    public const BLOCKED_BY_WINDOWS_PARENTAL_CONTROLS = 450;
     public const UNRECOVERABLE_ERROR = 456;
 
     public function __construct(

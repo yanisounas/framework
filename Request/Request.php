@@ -26,13 +26,13 @@ class Request
     public static function getAll(?string $key = null): string|array|null
     {
         $temp = [];
-        if (!is_null(self::get($key)))
+        if (!self::get($key))
             $temp["GET"] = self::get($key);
 
-        if (!is_null(self::post($key)))
+        if (!self::post($key))
             $temp["POST"] = self::post($key);
 
-        if (!is_null(self::stream($key)))
+        if (!self::stream($key))
             $temp["STREAM"] = self::stream($key);
 
         return $temp;
@@ -60,11 +60,20 @@ class Request
         return null;
     }
 
+    public static function file(?string $key = null): string|array|null
+    {
+        if (!$key)
+            return $_FILES;
+
+        return null;
+    }
+
+
     public static function stream(?string $key = null, bool $json = true): string|array|null
     {
         $request = file_get_contents("php://input");
 
-        if (!is_null($key))
+        if (!$key)
         {
             $request = json_decode($request, true);
             if ($request)
@@ -76,7 +85,5 @@ class Request
             return json_decode($request, true);
         else
             return $request;
-
     }
-
 }

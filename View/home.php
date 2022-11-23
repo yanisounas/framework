@@ -25,11 +25,7 @@
         </tbody>
     </table>
 
-    <form method="post">
-        <input type="text" placeholder="username" name="username">
-        <input type="text" placeholder="email" name="email">
-        <input type="text" placeholder="password" name="password">
-        <input type="submit" value="sub">
-    </form>
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
 </body>
 </html>
