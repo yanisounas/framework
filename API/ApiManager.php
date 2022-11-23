@@ -7,6 +7,7 @@ use Framework\API\Attributes\API;
 use Framework\API\Attributes\Endpoint;
 use Framework\API\FastDoc\FastDocController;
 use Framework\Router\Attributes\Route;
+use Framework\Router\Exceptions\RouteNameAlreadyDeclared;
 use Framework\Router\RouterInitializer;
 use ReflectionClass;
 use ReflectionException;
@@ -77,7 +78,7 @@ class ApiManager
     /**
      * @return void
      * @throws ReflectionException
-     * @throws \Framework\Router\Exceptions\RouteNameAlreadyDeclared
+     * @throws RouteNameAlreadyDeclared
      */
     public function initialize(): void
     {

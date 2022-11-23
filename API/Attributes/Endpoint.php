@@ -8,9 +8,21 @@ class Endpoint
     /**
      * @param string $endpointName
      * @param string $description
+     * @param string|null $method
      * @param array|null $params
      */
     public function __construct(private readonly string $endpointName, private readonly string $description, private ?string $method = null, private readonly ?array $params = null) {}
+
+
+    public static function sortByMethod(array $endpoints): array
+    {
+        $temp = [];
+
+        foreach ($endpoints as $route => $endpoint)
+            $temp[$endpoint->getMethod()][$route] = $endpoint;
+
+        return $temp;
+    }
 
     /**
      * @return string
