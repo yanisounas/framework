@@ -12,9 +12,8 @@ class Password
         if (($inclusive) ?
             (strlen($password) >= $minSize) && (strlen($password) <= $maxSize)
             : (strlen($password) > $minSize) && (strlen($password) < $maxSize))
-        {
             return true;
-        }
+
 
         self::$errors[] = "Your password must be between $minSize and $maxSize";
         return false;
@@ -27,29 +26,19 @@ class Password
             (preg_match("/[a-z]/", $password)) &&
             (preg_match("/[\d]/", $password)) &&
             (preg_match("/[\'^£$%&*()}{@#~?><>,|=_+¬-]/", $password)))
-        {
             return true;
-        }
 
         if (!preg_match("/[A-Z]/", $password))
-        {
             self::$errors[] = "Your password must contains uppercase letters";
-        }
 
         if (!preg_match("/[a-z]/", $password))
-        {
             self::$errors[] = "Your password must contains lowercase letters";
-        }
 
         if (!preg_match("/[\d]/", $password))
-        {
             self::$errors[] = "Your password must contains numbers";
-        }
 
         if (!(preg_match("/[\/'^£$%&*()}{@#~?<>,|=_+]/", $password)))
-        {
             self::$errors[] = "Your password must contains special characters : /'^£$%&*()}{@#~?<>,|=_+";
-        }
 
         return false;
 

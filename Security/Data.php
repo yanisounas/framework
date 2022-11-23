@@ -4,7 +4,6 @@ namespace Framework\Security;
 
 class Data
 {
-
     /**
      * Basic function to secure data passed to the database
      *
