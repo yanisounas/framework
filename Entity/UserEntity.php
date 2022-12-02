@@ -7,14 +7,17 @@ use Framework\ORM\Attributes\Column;
 
 class UserEntity extends Entity
 {
-    public static ?string $TABLE_NAME = 'users';
+    public static ?string $TABLE_NAME = "users";
 
-    #[Column("VARCHAR", 50)]
+    #[Column("VARCHAR", 255)]
     protected string $username;
 
-    #[Column("VARCHAR", 50)]
-    protected string $email;
-
-    #[Column("VARCHAR", 50)]
+    #[Column("VARCHAR", 255)]
     protected string $password;
+
+    #[Column("VARCHAR", 255)]
+    protected string $api_key;
+
+    #[Column("int", default:0)]
+    protected int $is_admin;
 }

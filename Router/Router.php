@@ -82,6 +82,7 @@ class Router
     {
         $requestMethod = $_SERVER["REQUEST_METHOD"];
         $this->url ??= $_SERVER["REQUEST_URI"];
+        $this->url = (!str_contains($this->url, "?")) ? $this->url : explode("?", $this->url)[0];
 
         if (!isset($this->routes[$requestMethod]))
             throw new MethodNotSupported("Method '$requestMethod' not supported");

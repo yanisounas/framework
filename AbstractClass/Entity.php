@@ -3,7 +3,6 @@
 namespace Framework\AbstractClass;
 
 use Framework\ORM\Attributes\Column;
-use ReflectionException;
 
 abstract class Entity
 {
@@ -40,15 +39,16 @@ abstract class Entity
         return $entities;
     }
 
-    protected function _isValidValue(string $property, string $value): void
-    {
-    }
-
     public function load(array $values): Entity
     {
         foreach ($values as $key => $value)
             $this->__set($key, $value);
 
         return $this;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 }

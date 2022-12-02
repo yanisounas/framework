@@ -8,6 +8,7 @@
     "require": {
       "ext-fileinfo": "*",
       "ext-pdo": "*",
-      "vlucas/phpdotenv": "^5.4"
+      "vlucas/phpdotenv": "^5.4",
+        "ramsey/uuid": "^4.6"
     }
 }

@@ -25,14 +25,17 @@ class Request
 
     public static function getAll(?string $key = null): string|array|null
     {
+        if (!$key)
+            return ["GET" => self::get(), "POST" => self::post(), "STREAM" => self::stream()];
+
         $temp = [];
-        if (!self::get($key))
+        if (self::get($key))
             $temp["GET"] = self::get($key);
 
-        if (!self::post($key))
+        if (self::post($key))
             $temp["POST"] = self::post($key);
 
-        if (!self::stream($key))
+        if (self::stream($key))
             $temp["STREAM"] = self::stream($key);
 
         return $temp;
@@ -40,7 +43,7 @@ class Request
 
     public static function get(?string $key = null): string|array|null
     {
-        if (!$key)
+        if (!$key && !empty($_GET))
             return $_GET;
 
         if (isset($_GET[$key]))
@@ -51,7 +54,7 @@ class Request
 
     public static function post(?string $key = null): string|array|null
     {
-        if (!$key)
+        if (!$key && !empty($_POST))
             return $_POST;
 
         if (isset($_POST[$key]))
@@ -62,7 +65,7 @@ class Request
 
     public static function file(?string $key = null): string|array|null
     {
-        if (!$key)
+        if (!$key && !empty($_FILES) )
             return $_FILES;
 
         return null;

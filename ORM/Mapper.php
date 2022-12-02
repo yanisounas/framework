@@ -6,6 +6,7 @@ use Framework\AbstractClass\Entity;
 use Framework\ORM\QueryBuilder\Database;
 use ReflectionClass;
 use ReflectionException;
+use ReflectionProperty;
 
 class Mapper
 {
@@ -17,9 +18,11 @@ class Mapper
     }
 
     /**
+     * @param string $entityName
+     * @return ReflectionClass
      * @throws ReflectionException
      */
-    private function __getReflect(string $entityName): ReflectionClass
+    public function _getReflect(string $entityName): ReflectionClass
     {
         //TODO: Gérer le cas où l'entity n'existe pas
 
@@ -28,11 +31,34 @@ class Mapper
     }
 
     /**
+     * @param ReflectionProperty[] $entityProps
+     * @param array $values
+     * @return void
+     */
+    public function _removeBadProps(array $entityProps, array &$values): void
+    {
+        array_walk($entityProps, function (&$item)
+        {
+            $item = $item->getName();
+        });
+
+        foreach (array_keys($values) as $key)
+        {
+            if (in_array($key, $entityProps))
+                continue;
+
+            unset($values[$key]);
+        }
+    }
+
+    /**
+     * @param string $entityName
+     * @return array
      * @throws ReflectionException
      */
     public function getAll(string $entityName): array
     {
-        $reflect = $this->__getReflect($entityName);
+        $reflect = $this->_getReflect($entityName);
 
         $results = $this->db->select( $reflect->getProperty("TABLE_NAME")->getValue() )->exec()->fetchAll();
         $values = [];
@@ -48,25 +74,33 @@ class Mapper
     }
 
     /**
+     * @param string $entityName
+     * @param array $columnValues
+     * @param mixed ...$kwargs
+     * @return object|bool
      * @throws ReflectionException
      */
-    public function getBy(string $entityName, array $columnValues = [], mixed ...$kwargs): object
+    public function getBy(string $entityName, array $columnValues = [], mixed ...$kwargs): object|bool
     {
         $columnValues = array_merge($columnValues, $kwargs);
-        $reflect = $this->__getReflect($entityName);
+        $reflect = $this->_getReflect($entityName);
 
         $result = $this->db->select( $reflect->getProperty("TABLE_NAME")->getValue() )->where($columnValues)->exec()->fetch();
 
-        return ($reflect->newInstance())->load($result);
+        return ($result) ? ($reflect->newInstance())->load($result) : false;
     }
 
     /**
+     * @param string $entityName
+     * @param array $columnValues
+     * @param ...$kwargs
+     * @return array
      * @throws ReflectionException
      */
     public function getAllBy(string $entityName, array $columnValues = [], ...$kwargs): array
     {
         $columnValues = array_merge($columnValues, $kwargs);
-        $reflect = $this->__getReflect($entityName);
+        $reflect = $this->_getReflect($entityName);
 
         $results = $this->db->select( $reflect->getProperty("TABLE_NAME")->getValue() )->where($columnValues)->exec()->fetchAll();
         $values = [];
@@ -82,32 +116,39 @@ class Mapper
     }
 
     /**
+     * @param string $entityName
+     * @param array $columnValues
+     * @param ...$kwargs
+     * @return void
      * @throws ReflectionException
      */
     public function make(string $entityName, array $columnValues = [], ...$kwargs): void
     {
         $columnValues = array_merge($columnValues, $kwargs);
-        $reflect = $this->__getReflect($entityName);
-        $props = $reflect->getProperties();
-
-        array_walk($props, function (&$item)
-        {
-            $item = $item->getName();
-        });
-
-        foreach (array_keys($columnValues) as $columnName)
-        {
-            if (in_array($columnName, $props))
-                continue;
-
-            unset($columnValues[$columnName]);
-        }
+        $reflect = $this->_getReflect($entityName);
+        $this->_removeBadProps($reflect->getProperties(), $columnValues);
 
         $this->db->insert($reflect->getProperty("TABLE_NAME")->getValue(), $columnValues);
     }
 
-    public function push(Entity $entity)
+    /**
+     * @param Entity $entity
+     * @return void
+     */
+    public function push(Entity $entity): void
     {
         $this->db->insert($entity::$TABLE_NAME, $entity->toAssocArray());
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    public function delete(string $entityName, array $columnValues = [], ...$kwargs): void
+    {
+        $columnValues = array_merge($columnValues, $kwargs);
+        $reflect = $this->_getReflect($entityName);
+        $this->_removeBadProps($reflect->getProperties(), $columnValues);
+
+        $this->db->delete($reflect->getProperty("TABLE_NAME")->getValue())->where($columnValues)->exec();
     }
 }

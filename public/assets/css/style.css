@@ -1,0 +1,409 @@
+@import url("https://cdn.jsdelivr.net/gh/jgthms/minireset.css@master/minireset.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus
+{
+    outline: none;
+}
+
+:root
+{
+    font-size: 16px;
+}
+
+
+.fa-thin
+{
+    -webkit-text-stroke: 1px #565656;
+    color: transparent;
+}
+
+body
+{
+    background-image: url("http://localhost:8000/assets/img/background.jpg");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Poppins", sans-serif;
+}
+
+.container
+{
+    background-color: rgba(255, 255, 255, .5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(3px);
+    width: 75%;
+    height: 85%;
+    border-radius: 15px;
+    box-shadow: 0 1px 3px #d1c6be;
+    overflow: hidden;
+    z-index: 2;
+    display: none;
+}
+
+.overlay
+{
+    position: absolute;
+    background-color: rgba(130, 130, 130, 0.3);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.container_header
+{
+    width: 100%;
+    height: 50px;
+    box-shadow: 0 2px 1px -2px #373737;
+    display: flex;
+}
+
+.dots
+{
+    height: 15px;
+    width: 15px;
+    background-color: #f96057;
+    border-radius: 100%;
+    align-self: center;
+    margin: 15px;
+    box-shadow: 24px 0 0 0 #f8ce52, 48px 0 0 0 #5fcf65;
+}
+
+.account_menu
+{
+    width: 30px;
+    height: 30px;
+    align-self: center;
+    margin: 0 15px 0 auto;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.account_menu img
+{
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+}
+
+.container_body
+{
+    width: 100%;
+    height: 95%;
+    display: flex;
+}
+
+.side_menu
+{
+    height: 100%;
+    width: 200px;
+    box-shadow: 2px 0 1px -2px #373737;
+}
+
+.side_menu__list
+{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    color: #565656;
+}
+
+.menu_list__item
+{
+    width: 85%;
+    height: 60px;
+    margin: 10px 5px;
+    padding-left: 20%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: .9s background-color;
+}
+
+.menu_list__item:hover, .side_menu__list .active
+{
+    background-color: rgba(255, 255, 255, .35);
+    box-shadow: 0 1px 1px #d1c6be;
+}
+
+.app_title
+{
+    font-weight: 500;
+    font-size: 1.05rem;
+    margin: 15px 0;
+    text-transform: uppercase;
+}
+
+
+.side_menu__list .fa-solid
+{
+    margin-right: 15px;
+}
+
+.app
+{
+    width: 90%;
+    height: 100%;
+    padding: 0 50px;
+}
+
+.home, .api, .settings
+{
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding-top: 30px;
+    overflow-y: auto;
+}
+
+.api, .settings
+{
+    display: none;
+}
+
+.shortener_form
+{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 20px;
+}
+
+.form_input
+{
+    background-color: rgba(255, 255, 255, .4);
+    border: none;
+    padding: 20px;
+    font-size: 1rem;
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    margin-right: 5px;
+    font-family: "Poppins", sans-serif;
+    color: #565656;
+    box-shadow: 0 2px 5px #d1c6be;
+}
+
+.app_body
+{
+    background-color: rgba(255, 255, 255, .31);
+    box-shadow: 0 1px 1px #d1c6be;
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 20px;
+    max-height: 85%;
+}
+
+.app_body__error
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    text-align: center;
+}
+
+.body_error__text
+{
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin: 15px 0;
+    color: #565656;
+}
+
+.body_error__button
+{
+    border: none;
+    padding: 10px;
+    width: 150px;
+    border-radius: 10px;
+    background-color: rgba(241, 241, 241, 0.31);
+    box-shadow: 0 2px 5px #d1c6be;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: #565656;
+    transition: .6s background-color;
+}
+
+.body_error__button:hover
+{
+    background-color: rgba(202, 202, 202, 0.31);
+}
+
+
+.settings_category
+{
+    margin-bottom: 40px;
+}
+
+.category_title
+{
+    font-size: 1.2rem;
+    color: #565656;
+    margin-bottom: 10px;
+}
+
+.category_body
+{
+    background-color: rgba(241, 241, 241, 0.31);
+    box-shadow: 0 2px 5px #d1c6be;
+    border-radius: 10px;
+    width: 95%;
+    height: 200px;
+}
+
+
+.settings::-webkit-scrollbar
+{
+    background-color: transparent;
+    width: 10px;
+}
+
+.settings::-webkit-scrollbar-button:hover  .settings::-webkit-scrollbar
+{
+    width: 13px;
+}
+
+.settings::-webkit-scrollbar-track
+{
+    background: transparent;
+}
+
+.settings::-webkit-scrollbar-thumb
+{
+    background-color: #babac0;
+    border-radius: 16px;
+}
+
+.settings::-webkit-scrollbar-button
+{
+    display:none;
+}
+
+.login_register
+{
+    background-color: rgba(241, 241, 241, 0.40);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 5px #d1c6be;
+    border-radius: 10px;
+    width: 500px;
+    height: 350px;
+    color: #666666;
+    z-index: 2;
+    display: flex;
+}
+
+.login_register
+{
+    height: 430px;
+}
+
+.login, .register
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.register .fa-arrow-left
+{
+    align-self: flex-start;
+    cursor: pointer;
+    margin: 5px 20px;
+
+}
+
+.login
+{
+    display: none;
+}
+
+.login_register__form
+{
+    width: 100%;
+}
+
+.form_title
+{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.form_group
+{
+    margin: 20px;
+}
+
+.btn
+{
+    border: none;
+    border-radius: 10px;
+    background-color: #48acf0;
+    padding: .8rem 2.3rem;
+    cursor: pointer;
+    color: white;
+    font-size: 1.2rem;
+    width: 100%;
+    transition: background-color .5s;
+}
+
+.btn:hover
+{
+    background-color: #3681b3;
+}
+
+.other
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.line
+{
+    margin: 5px 0 10px 0;
+    position: relative;
+}
+
+.line::after, .line::before
+{
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 150px;
+    height: 1px;
+    background-color: #565656;
+}
+
+.line::before
+{
+    left: -160px;
+}
+
+.line::after
+{
+    right: -160px;
+}

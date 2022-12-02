@@ -319,6 +319,6 @@ The #[Endpoint] attribute will give the APIManager all the information that will
 
 Now, reboot the server and try
 
-- [localhost:8000/api](http://localhost:8000/api) 
-- [localhost:8000/api/user1](http://localhost:8000/api/user1)
-- [localhost:8000/api-documentation](http://localhost:8000/api-documentation)
+- <a href="http://localhost:8000/api" target="_blank" rel="noopener">http://localhost:8000/api
+- <a href="http://localhost:8000/api/user1" target="_blank" rel="noopener">http://localhost:8000/api/user1
+- <a href="http://localhost:8000/api-documentation" target="_blank" rel="noopener">http://localhost:8000/api-documentation

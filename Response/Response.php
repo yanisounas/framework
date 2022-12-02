@@ -72,6 +72,14 @@ class Response
     public const RETRY_WITH = 449;
     public const UNRECOVERABLE_ERROR = 456;
 
+    public const INTERNAL_SERVER_ERROR = 500;
+    public const NOT_IMPLEMENTED = 501;
+    public const BAD_GATEWAY = 502;
+    public const SERVICE_UNAVAILABLE = 503;
+    public const GATEWAY_TIMEOUT = 504;
+    public const HTTP_VERSION_NOT_SUPPORTED = 505;
+
+
     public function __construct(
         public ?string $content = null,
         private readonly ?int    $statusCode = null,
