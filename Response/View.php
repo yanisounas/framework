@@ -25,7 +25,6 @@ class View extends Response
 
         $this->rawContent = ob_get_clean();
 
-        ob_end_clean();
 
         $this->render();
     }

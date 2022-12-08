@@ -11,4 +11,8 @@ $(document).ready(function() {
 
         document.title = "URLShortener | " + $(this).text();
     });
+
+    $(".alert .close").click(function () {
+        $(this).parent().css("visibility", "hidden");
+    })
 });

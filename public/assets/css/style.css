@@ -15,6 +15,11 @@ button:focus
 }
 
 
+a
+{
+    text-decoration: none;
+}
+
 .fa-thin
 {
     -webkit-text-stroke: 1px #565656;
@@ -46,7 +51,47 @@ body
     box-shadow: 0 1px 3px #d1c6be;
     overflow: hidden;
     z-index: 2;
-    display: none;
+}
+
+.alert
+{
+    z-index: 3;
+    background-color: #e8e8e8;
+    min-width: 300px;
+    display: flex;
+    position: fixed;
+    top: 20px;
+    right: 0;
+    margin-right: 20px;
+    padding: 30px;
+    border-radius: 5px;
+    -webkit-animation: fadein 0.5s;
+    animation: fadein 0.5s;
+    color: white;
+}
+
+.alert .close
+{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 5px 10px;
+    cursor: pointer;
+}
+
+.alert-danger
+{
+    background-color: rgba(211, 47, 47, .8);
+}
+
+@-webkit-keyframes fadein {
+    from {top: 0; opacity: 0;}
+    to {top: 20px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {top: 0; opacity: 0;}
+    to {top: 20px; opacity: 1;}
 }
 
 .overlay
@@ -300,22 +345,17 @@ body
     display:none;
 }
 
-.login_register
+.login_register_container
 {
     background-color: rgba(241, 241, 241, 0.40);
     backdrop-filter: blur(10px);
     box-shadow: 0 2px 5px #d1c6be;
     border-radius: 10px;
     width: 500px;
-    height: 350px;
+    height: 430px;
     color: #666666;
     z-index: 2;
     display: flex;
-}
-
-.login_register
-{
-    height: 430px;
 }
 
 .login, .register
@@ -328,17 +368,18 @@ body
     padding-top: 30px;
 }
 
-.register .fa-arrow-left
+.register a
 {
     align-self: flex-start;
     cursor: pointer;
-    margin: 5px 20px;
+    margin: 0 20px;
+    color: #666666;
 
 }
 
 .login
 {
-    display: none;
+
 }
 
 .login_register__form

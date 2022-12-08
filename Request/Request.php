@@ -71,7 +71,6 @@ class Request
         return null;
     }
 
-
     public static function stream(?string $key = null, bool $json = true): string|array|null
     {
         $request = file_get_contents("php://input");

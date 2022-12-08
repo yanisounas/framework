@@ -93,7 +93,5 @@ class Response
 
         if (is_string($this->content))
             echo $this->content;
-
-
     }
 }

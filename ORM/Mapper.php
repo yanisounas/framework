@@ -85,7 +85,7 @@ class Mapper
         $columnValues = array_merge($columnValues, $kwargs);
         $reflect = $this->_getReflect($entityName);
 
-        $result = $this->db->select( $reflect->getProperty("TABLE_NAME")->getValue() )->where($columnValues)->exec()->fetch();
+        $result = $this->db->select( $reflect->getProperty("TABLE_NAME")->getValue() )->where($columnValues)->exec()->fetchOne();
 
         return ($result) ? ($reflect->newInstance())->load($result) : false;
     }
@@ -128,7 +128,7 @@ class Mapper
         $reflect = $this->_getReflect($entityName);
         $this->_removeBadProps($reflect->getProperties(), $columnValues);
 
-        $this->db->insert($reflect->getProperty("TABLE_NAME")->getValue(), $columnValues);
+        $this->db->insert($reflect->getProperty("TABLE_NAME")->getValue(), $columnValues)->exec();
     }
 
     /**

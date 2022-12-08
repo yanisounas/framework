@@ -47,7 +47,7 @@
                     <?php if (!isset($_SESSION["username"])): ?>
                         <div class="app_body__error">
                             <p class="body_error__text">You must be logged in to access this feature</p>
-                            <button class="body_error__button">Login</button>
+                            <a class="body_error__button" href="/login">Login</a>
                         </div>
                     <?php else: ?>
                         <h1>Todo: links table</h1>
@@ -100,56 +100,5 @@
     </main>
 </div>
 
-<div class="login_register">
-    <div class="login">
-        <h2 class="form_title">Login</h2>
-
-        <form method="POST" class="login_register__form form_login">
-            <input type="hidden" name="action" value="login">
-            <div class="form_group">
-                <label for="username_login">Username</label>
-                <input type="text" class="form_input" id="username_login" name="username_login">
-            </div>
-
-            <div class="form_group">
-                <label for="password_login">Password</label>
-                <input type="password" class="form_input" id="password_login" name="password_login">
-            </div>
-            <div class="form_group">
-                <input type="submit" class="btn" value="Login">
-            </div>
-        </form>
-
-        <div class="other">
-            <div class="line">Or</div>
-            <button class="btn">Create a new account</button>
-        </div>
-    </div>
-    <div class="register">
-        <i class="fa-solid fa-arrow-left fa-lg"></i>
-        <h2 class="form_title">Register</h2>
-
-        <form method="POST" class="login_register__form form_register">
-            <input type="hidden" name="action" value="register">
-
-            <div class="form_group">
-                <label for="username_register">Username</label>
-                <input type="text" class="form_input" id="username_register" name="username_register">
-            </div>
-
-            <div class="form_group">
-                <label for="password_register">Password</label>
-                <input type="password" class="form_input" id="password_register" name="password_register">
-            </div>
-            <div class="form_group">
-                <label for="confirm_register">Confirm Password</label>
-                <input type="password" class="form_input" id="confirm_register" name="confirm_register">
-            </div>
-            <div class="form_group">
-                <input type="submit" class="btn" value="Register">
-            </div>
-        </form>
-    </div>
-</div>
 
 {% endblock %}

@@ -16,7 +16,7 @@ class UserEntity extends Entity
     protected string $password;
 
     #[Column("VARCHAR", 255)]
-    protected string $api_key;
+    protected ?string $api_key;
 
     #[Column("int", default:0)]
     protected int $is_admin;

@@ -2,13 +2,15 @@
 
 namespace Framework\User;
 
+use Framework\AbstractClass\Entity;
 use Framework\ORM\Mapper;
+use Framework\Security\Data;
 use ReflectionException;
 
 class UserManager
 {
 
-    public static array $errors;
+    public function __construct(private readonly Mapper $mapper = new Mapper(), private ?array $errors = null) {}
 
     /**
      * @param string $entityName
@@ -16,19 +18,56 @@ class UserManager
      * @return void
      * @throws ReflectionException
      */
-    public static function make(string $entityName, ?array $values = null): void
+    public function make(string $entityName, ?array $values = null): void
     {
-        $mapper = new Mapper();
-        $reflect = $mapper->_getReflect($entityName);
+        $reflect = $this->mapper->_getReflect($entityName);
         $props = $reflect->getProperties();
 
-        $mapper->_removeBadProps($props, $values);
+        $this->mapper->_removeBadProps($props, $values);
 
 
         var_dump($values);
 
     }
 
-    public static function userExists(string $entityName, array $values): void
-    {}
+    /**
+     * @throws ReflectionException
+     */
+    public function userExists(string $entityName, string $username): bool
+    {
+        if (!$this->mapper->getBy($entityName, ["username" => $username]))
+        {
+            $this->errors[] = "Unknown username";
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    public function login(string $entityName, array $credentials): bool
+    {
+        foreach ($credentials as &$credential)
+            $credential = Data::cleanString($credential);
+
+        if (!$this->userExists($entityName, $credentials["username"]))
+            return false;
+
+        $user = $this->mapper->getBy("User", ["username" => $credentials["username"]]);
+
+        if (!password_verify($credentials["password"], $user->password))
+        {
+            $this->errors[] = "Invalid password";
+            return false;
+        }
+
+        return true;
+    }
+
+    public function getErrors(): array|null
+    {
+        return $this->errors;
+    }
 }

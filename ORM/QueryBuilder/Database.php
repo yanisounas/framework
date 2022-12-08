@@ -3,6 +3,8 @@
 namespace Framework\ORM\QueryBuilder;
 
 
+use Exception;
+
 class Database
 {
     private readonly \PDO $db;

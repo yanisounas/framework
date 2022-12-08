@@ -12,12 +12,9 @@ class UrlEntity extends Entity
     #[Column("INT")]
     protected int $user_id;
 
-    #[Column("VARCHAR", 255)]
-    protected string $url;
-
     #[Column("VARCHAR", 7)]
     protected string $token;
 
-    #[Column("TIMESTAMP")]
-    protected string $created_at;
+    #[Column("TEXT")]
+    protected string $link;
 }
