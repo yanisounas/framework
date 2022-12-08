@@ -88,4 +88,32 @@ class Request
         else
             return $request;
     }
+
+    public static function useSession(): void
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE)
+            session_start();
+    }
+
+    public static function removeSession(): void
+    {
+        self::useSession();
+        session_unset();
+        session_destroy();
+    }
+
+    public static function session(?string $key = null): string|array|null
+    {
+        self::useSession();
+        if (!isset($_SESSION))
+            return null;
+
+        if (!$key && !empty($_SESSION))
+            return $_SESSION;
+
+        if (isset($_SESSION[$key]))
+            return $_SESSION[$key];
+
+        return null;
+    }
 }

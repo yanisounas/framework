@@ -18,7 +18,8 @@
     <header class="container_header">
         <div class="dots"></div>
         <div class="account_menu">
-            <?php if (!isset($_SESSION["username"])): ?>
+            <?php
+            if (!isset($_SESSION["username"])): ?>
                 <img src="./assets/img/user_default.png" alt="User Image">
             <?php else: ?>
                 <img src="https://xsgames.co/randomusers/assets/avatars/female/43.jpg" alt="User Image">
@@ -47,7 +48,7 @@
                     <?php if (!isset($_SESSION["username"])): ?>
                         <div class="app_body__error">
                             <p class="body_error__text">You must be logged in to access this feature</p>
-                            <a class="body_error__button" href="/login">Login</a>
+                            <a class="body_error__button" href="<?= Framework\Router\Router::getPathFrom("home.login") ?>">Login</a>
                         </div>
                     <?php else: ?>
                         <h1>Todo: links table</h1>

@@ -2,6 +2,7 @@
 
 namespace Framework\Router;
 
+use Framework\Request\Request;
 use Framework\Response\View;
 use Framework\Router\Attributes\Route;
 use Framework\Router\Exceptions\MethodNotSupported;
@@ -80,7 +81,7 @@ class Router
      */
     public function listen(): mixed
     {
-        $requestMethod = $_SERVER["REQUEST_METHOD"];
+        $requestMethod = Request::METHOD();
         $this->url ??= $_SERVER["REQUEST_URI"];
         $this->url = (!str_contains($this->url, "?")) ? $this->url : explode("?", $this->url)[0];
 
@@ -93,7 +94,7 @@ class Router
 
         if (!isset($_ENV["ERROR_404"]))
             throw new RouteNotFound("Route $this->url not found");
-        return (new View(dirname(__DIR__) . DIRECTORY_SEPARATOR . $_ENV["ERROR_404"], 404))->render();
+        return (new View(dirname(__DIR__) . DIRECTORY_SEPARATOR . $_ENV["ERROR_404"], 404));
     }
 
     /**
@@ -102,12 +103,15 @@ class Router
      * @param string $name Name of the route
      * @return string
      * @throws RouteNotFound
+     * @throws ReflectionException
      */
-    public function getPathFrom(string $name): string
+    public static function getPathFrom(string $name): string
     {
-        if (!isset($this->namedRoutes[$name]))
+        $router = RouterInitializer::getInstance()->router;
+
+        if (!isset($router->namedRoutes[$name]))
             throw new RouteNotFound("Route with name \"{$name}\" not found");
 
-        return ($this->namedRoutes[$name] == "/") ? $this->namedRoutes[$name] : $this->namedRoutes[$name] . '/';
+        return ($router->namedRoutes[$name] == "/") ? $router->namedRoutes[$name] : "/" . $router->namedRoutes[$name];
     }
 }

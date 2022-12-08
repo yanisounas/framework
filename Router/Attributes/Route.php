@@ -16,13 +16,11 @@ class Route
     /**
      * @param string $path
      * @param string $method
-     * @param mixed|null $request
      * @param string|null $routeName
      */
     public function __construct(
         private string $path,
         private readonly string $method = "GET",
-        private readonly mixed $request = null,
         private readonly ?string $routeName = null)
     {
         $this->path = ($this->path != '/') ? trim($this->path, '/') : $this->path;
@@ -37,26 +35,21 @@ class Route
     {
         $url = ($url != '/') ? trim($url, '/') : $url;
 
-        if (preg_match_all("#({\w+}):\w+#", $this->path, $typedMatches))
+        if (preg_match_all("#{\w+}:\w+#", $this->path, $typedMatches))
         {
             foreach ($typedMatches[0] as $founded)
             {
                 preg_match("#{\w+}#", $founded, $type);
                 if (isset(self::TYPES[$type[0]]))
-                    $this->path = preg_replace("#". $type[0] .":\w+#", self::TYPES[$type[0]], $this->path);
+                    $this->path = preg_replace("#$founded#", self::TYPES[$type[0]], $this->path);
                 else
                     throw new Exception("Unknown type $type[0]");
             }
         }
 
+        $this->path = preg_replace("#:\w+#", "([^/]+)", $this->path);
 
-        $path = preg_replace("#:(\w+)#", "([^/]+)", $this->path);
-        $reg = "#^$path$#i";
-
-
-
-
-        if(!preg_match($reg, $url, $matches))
+        if(!preg_match("#^$this->path$#i", $url, $matches))
             return false;
 
         array_shift($matches);
@@ -72,10 +65,6 @@ class Route
      * @return string
      */
     public function getMethod(): string {return $this->method;}
-    /**
-     * @return mixed|null
-     */
-    public function getRequest(): mixed {return $this->request;}
     /**
      * @return string|null
      */

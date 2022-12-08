@@ -2,9 +2,11 @@
 
 namespace Framework\User;
 
-use Framework\AbstractClass\Entity;
+use Framework\ORM\Attributes\Column;
 use Framework\ORM\Mapper;
+use Framework\Request\Request;
 use Framework\Security\Data;
+use ReflectionClass;
 use ReflectionException;
 
 class UserManager
@@ -61,6 +63,22 @@ class UserManager
         {
             $this->errors[] = "Invalid password";
             return false;
+        }
+
+        Request::useSession();
+
+        $reflect = new ReflectionClass($user);
+
+        foreach ($reflect->getProperties() as $property)
+        {
+            foreach ($property->getAttributes(Column::class) as $attribute)
+            {
+                if ($property->getName() != "password")
+                {
+                    $name = $property->getName();
+                    $_SESSION[$name] = $user->$name;
+                }
+            }
         }
 
         return true;

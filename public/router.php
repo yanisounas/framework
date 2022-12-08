@@ -3,6 +3,8 @@
 ini_set("display_errors", 1);
 chdir(__DIR__);
 
+
+
 require "../vendor/autoload.php";
 
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
