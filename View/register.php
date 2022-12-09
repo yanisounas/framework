@@ -18,7 +18,7 @@
 
 <div class="login_register_container">
     <div class="register">
-        <a href="<?= Framework\Router\Router::getPathFrom("home.login") ?>"><i class="fa-solid fa-arrow-left fa-lg"></i></a>
+        <a href="<?= Framework\Router\Router::getPathFrom("account.login") ?>"><i class="fa-solid fa-arrow-left fa-lg"></i></a>
         <h2 class="form_title">Register</h2>
 
         <form method="POST" class="login_register__form form_register">

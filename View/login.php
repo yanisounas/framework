@@ -51,7 +51,7 @@ if (isset($errors) && !empty($errors))
 
         <div class="other">
             <div class="line">Or</div>
-            <a class="btn" href="<?= Framework\Router\Router::getPathFrom("home.register") ?>">Create a new account</a>
+            <a class="btn" href="<?= Framework\Router\Router::getPathFrom("account.register") ?>">Create a new account</a>
         </div>
     </div>
 </div>

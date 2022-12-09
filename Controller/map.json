@@ -1,1 +1,1 @@
-{"Controllers":["Framework\\Controller\\ApiController","Framework\\Controller\\HomeController"],"Api":["Framework\\Controller\\ApiController"]}
+{"Controllers":["Framework\\Controller\\ApiController","Framework\\Controller\\HomeController","Framework\\Controller\\UserController"],"Api":["Framework\\Controller\\ApiController"]}

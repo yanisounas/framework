@@ -48,7 +48,7 @@
                     <?php if (!isset($_SESSION["username"])): ?>
                         <div class="app_body__error">
                             <p class="body_error__text">You must be logged in to access this feature</p>
-                            <a class="body_error__button" href="<?= Framework\Router\Router::getPathFrom("home.login") ?>">Login</a>
+                            <a class="body_error__button" href="<?= Framework\Router\Router::getPathFrom("account.login") ?>">Login</a>
                         </div>
                     <?php else: ?>
                         <h1>Todo: links table</h1>
@@ -60,37 +60,15 @@
             </section>
             <section class="settings">
                 <div class="settings_category">
-                    <h2 class="category_title">Basic Settings</h2>
+                    <h2 class="category_title">Account Setting</h2>
                     <div class="category_body">
-
+                        <form action="/settings/account">
+                            <input type="submit" value="dij">
+                        </form>
                     </div>
                 </div>
                 <div class="settings_category">
-                    <h2 class="category_title">Basic Settings</h2>
-                    <div class="category_body">
-
-                    </div>
-                </div>
-                <div class="settings_category">
-                    <h2 class="category_title">Basic Settings</h2>
-                    <div class="category_body">
-
-                    </div>
-                </div>
-                <div class="settings_category">
-                    <h2 class="category_title">Basic Settings</h2>
-                    <div class="category_body">
-
-                    </div>
-                </div>
-                <div class="settings_category">
-                    <h2 class="category_title">Basic Settings</h2>
-                    <div class="category_body">
-
-                    </div>
-                </div>
-                <div class="settings_category">
-                    <h2 class="category_title">Basic Settings</h2>
+                    <h2 class="category_title">Security</h2>
                     <div class="category_body">
 
                     </div>

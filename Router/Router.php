@@ -88,9 +88,22 @@ class Router
         if (!isset($this->routes[$requestMethod]))
             throw new MethodNotSupported("Method '$requestMethod' not supported");
 
+        $matchingRoutes = [];
         foreach ($this->routes[$requestMethod] as $route)
             if ($route[0]->match($this->url))
-                return call_user_func_array([new $route[1][0](), $route[1][1]], $route[0]->getMatches());
+                $matchingRoutes[] = $route;
+
+        if (!empty($matchingRoutes))
+        {
+            if (count($matchingRoutes) > 1)
+            {
+                foreach ($matchingRoutes as $matchingRoute)
+                    if ($matchingRoute[0]->getPath() == trim($this->url, '/'))
+                        return call_user_func_array([new $matchingRoute[1][0](), $matchingRoute[1][1]], $matchingRoute[0]->getMatches());
+            }
+
+            return call_user_func_array([new $matchingRoutes[0][1][0](), $matchingRoutes[0][1][1]], $matchingRoutes[0][0]->getMatches());
+        }
 
         if (!isset($_ENV["ERROR_404"]))
             throw new RouteNotFound("Route $this->url not found");
@@ -101,16 +114,15 @@ class Router
      * Get Path from a named route
      *
      * @param string $name Name of the route
-     * @return string
-     * @throws RouteNotFound
+     * @return ?string
      * @throws ReflectionException
      */
-    public static function getPathFrom(string $name): string
+    public static function getPathFrom(string $name): ?string
     {
         $router = RouterInitializer::getInstance()->router;
 
         if (!isset($router->namedRoutes[$name]))
-            throw new RouteNotFound("Route with name \"{$name}\" not found");
+            return null;
 
         return ($router->namedRoutes[$name] == "/") ? $router->namedRoutes[$name] : "/" . $router->namedRoutes[$name];
     }

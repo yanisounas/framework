@@ -46,55 +46,6 @@ class HomeController extends Controller
 
     /**
      * @throws ReflectionException
-     * @throws RouteNotFound
-     */
-    #[Route("/login", method: "POST|GET", routeName: "home.login")]
-    public function login(): View|RedirectResponse
-    {
-        if (Request::session("username"))
-            return new RedirectResponse(Router::getPathFrom("home.index"));
-
-        $errors = [];
-
-        if (Request::METHOD() == "POST" && Request::post("submit"))
-        {
-            if (empty(Request::post("username")) || empty(Request::post("password")))
-                $errors[] = "Missing credentials";
-            else
-                if (!($um = new UserManager())->login("User", ["username" => Request::post("username"), "password" => Request::post("password")]))
-                    $errors = $um->getErrors();
-                else
-                    return new RedirectResponse(Router::getPathFrom("home.index"));
-        }
-
-        return $this->view("login", ["errors" => $errors]);
-    }
-
-    /**
-     * @throws ReflectionException
-     * @throws RouteNotFound
-     */
-    #[Route("/register", method: "POST|GET", routeName: "home.register")]
-    public function register(): View|RedirectResponse
-    {
-        if (Request::session("username"))
-            return new RedirectResponse(Router::getPathFrom("home.index"));
-        return $this->view("register");
-    }
-
-    /**
-     * @throws ReflectionException
-     * @throws RouteNotFound
-     */
-    #[Route("/disconnect", routeName: "home.disconnect")]
-    public function disconnect(): RedirectResponse
-    {
-        Request::removeSession();
-        return new RedirectResponse(Router::getPathFrom("home.index"));
-    }
-
-    /**
-     * @throws ReflectionException
      */
     #[Route("/{s}:token")]
     public function goToUrl(string $token): JSONResponse|RedirectResponse
